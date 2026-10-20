@@ -1,0 +1,29 @@
+# ==========================================================
+# CẤU HÌNH PROMETHEUS SCRAPING CONFIGURATION
+# ==========================================================
+
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  # 1. Tự giám sát máy chủ Prometheus
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # 2. Giám sát Nginx Reverse Proxy qua nginx-prometheus-exporter
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx-exporter:9113']
+        labels:
+          service: 'nginx-reverse-proxy'
+          environment: 'production'
+
+  # 3. Giám sát Cơ sở dữ liệu MySQL qua mysqld_exporter
+  - job_name: 'mysql'
+    static_configs:
+      - targets: ['mysql-exporter:9104']
+        labels:
+          service: 'mysql-database'
+          environment: 'production'
