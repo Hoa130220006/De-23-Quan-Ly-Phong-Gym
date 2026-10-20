@@ -1,0 +1,61 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  # 1. Thu thập Nginx Access Log
+  - job_name: nginx-access
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: nginx
+          logtype: access
+          __path__: /var/log/nginx/app_access.log
+    pipeline_stages:
+      - json:
+          expressions:
+            status: status
+            method: request_method
+            uri: request_uri
+            remote_addr: remote_addr
+            request_time: request_time
+      - labels:
+          status:
+          method:
+
+  # 2. Thu thập Nginx Error Log
+  - job_name: nginx-error
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: nginx
+          logtype: error
+          __path__: /var/log/nginx/app_error.log
+
+  # 3. Thu thập PHP Application Log (Audit, login, database events)
+  - job_name: app-logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: app
+          logtype: application
+          __path__: /var/log/app/app.log
+    pipeline_stages:
+      - json:
+          expressions:
+            level: level
+            user: user
+            role: role
+            message: message
+      - labels:
+          level:
+          role:
