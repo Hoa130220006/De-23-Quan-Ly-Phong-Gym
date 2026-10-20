@@ -73,6 +73,9 @@ for page, name in [
 ]:
     r = opener.open(page)
     h = r.read().decode("utf-8")
+    if "schedules" in page:
+        sample_names = re.findall(r'<strong>(.*?)</strong>', h)
+        print(f"      [Schedule Samples]: {sample_names[:4]}")
     if name in h or "Titan" in h:
         print(f"      [OK] {name} -> Accessible")
     else:

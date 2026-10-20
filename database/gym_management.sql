@@ -8,6 +8,12 @@
 CREATE DATABASE IF NOT EXISTS `gym_management` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `gym_management`;
 
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
+SET character_set_client = utf8mb4;
+SET character_set_connection = utf8mb4;
+SET character_set_results = utf8mb4;
+
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `training_schedules`;
 DROP TABLE IF EXISTS `memberships`;
