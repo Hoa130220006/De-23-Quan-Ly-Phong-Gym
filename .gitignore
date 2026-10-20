@@ -1,0 +1,21 @@
+# Environment Variables
+.env
+*.env.local
+
+# Docker Data Volumes
+mysql_data/
+prometheus_data/
+grafana_data/
+loki_data/
+
+# OS and IDE files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+/var/log/
+
+# Temporary test scripts
+test_*.php
+scratch/
