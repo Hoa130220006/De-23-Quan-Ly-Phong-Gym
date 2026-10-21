@@ -53,6 +53,28 @@ services:
       start_period: 15s
 
   # -------------------------------------------------------------
+  # 2.1 CÔNG CỤ QUẢN LÝ CƠ SỞ DỮ LIỆU PHPMYADMIN (TIÊU CHÍ 2)
+  # -------------------------------------------------------------
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: gym_phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: ${DB_USER:-gym_user}
+      PMA_PASSWORD: ${DB_PASS:-GymSecret@2026}
+      UPLOAD_LIMIT: 64M
+    ports:
+      - "${PHPMYADMIN_PORT:-8080}:80"
+    networks:
+      - gym_backend
+      - gym_frontend
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # -------------------------------------------------------------
   # 3. NGINX REVERSE PROXY & HTTPS (PORT 80 & 443)
   # -------------------------------------------------------------
   nginx:

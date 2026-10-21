@@ -150,6 +150,64 @@ function recordAuditLog(PDO $pdo, string $action, string $details = ''): void {
 }
 
 /**
+ * Chuyển đổi mã hành động sang tên tiếng Việt và loại badge hiển thị
+ */
+function formatAuditAction(string $action): array {
+    $action = trim($action);
+    $map = [
+        // Xác thực & Phiên làm việc
+        'LOGIN_SUCCESS'     => ['label' => 'Đăng nhập', 'type' => 'success'],
+        'LOGIN_FAILED'      => ['label' => 'Đăng nhập thất bại', 'type' => 'danger'],
+        'LOGOUT'            => ['label' => 'Đăng xuất', 'type' => 'warning'],
+
+        // Quản lý Hội viên
+        'MEMBER_CREATE'     => ['label' => 'Thêm hội viên', 'type' => 'success'],
+        'MEMBER_UPDATE'     => ['label' => 'Cập nhật hội viên', 'type' => 'info'],
+        'MEMBER_DELETE'     => ['label' => 'Xóa hội viên', 'type' => 'danger'],
+
+        // Quản lý Đăng ký gói tập (Memberships)
+        'MEMBERSHIP_CREATE' => ['label' => 'Đăng ký gói', 'type' => 'success'],
+        'MEMBERSHIP_UPDATE' => ['label' => 'Cập nhật gói', 'type' => 'info'],
+        'MEMBERSHIP_DELETE' => ['label' => 'Hủy/Xóa gói', 'type' => 'danger'],
+
+        // Quản lý Huấn luyện viên
+        'TRAINER_CREATE'    => ['label' => 'Thêm HLV', 'type' => 'success'],
+        'TRAINER_UPDATE'    => ['label' => 'Cập nhật HLV', 'type' => 'info'],
+        'TRAINER_DELETE'    => ['label' => 'Xóa HLV', 'type' => 'danger'],
+
+        // Quản lý Gói dịch vụ
+        'PACKAGE_CREATE'    => ['label' => 'Thêm gói tập', 'type' => 'success'],
+        'PACKAGE_UPDATE'    => ['label' => 'Cập nhật gói tập', 'type' => 'info'],
+        'PACKAGE_DELETE'    => ['label' => 'Xóa gói tập', 'type' => 'danger'],
+
+        // Quản lý Lịch tập
+        'SCHEDULE_CREATE'   => ['label' => 'Đặt lịch tập', 'type' => 'success'],
+        'SCHEDULE_UPDATE'   => ['label' => 'Cập nhật lịch tập', 'type' => 'info'],
+        'SCHEDULE_DELETE'   => ['label' => 'Hủy lịch tập', 'type' => 'danger'],
+
+        // Hệ thống
+        'SYSTEM_INIT'       => ['label' => 'Khởi tạo hệ thống', 'type' => 'info'],
+    ];
+
+    if (isset($map[$action])) {
+        return $map[$action];
+    }
+
+    // Tự động suy đoán nhãn và màu sắc cho các action mở rộng khác
+    if (str_ends_with($action, '_CREATE')) {
+        return ['label' => 'Thêm mới (' . $action . ')', 'type' => 'success'];
+    }
+    if (str_ends_with($action, '_UPDATE')) {
+        return ['label' => 'Cập nhật (' . $action . ')', 'type' => 'info'];
+    }
+    if (str_ends_with($action, '_DELETE')) {
+        return ['label' => 'Xóa (' . $action . ')', 'type' => 'danger'];
+    }
+
+    return ['label' => $action, 'type' => 'default'];
+}
+
+/**
  * Kiểm tra xung đột lịch tập của Huấn luyện viên
  * Tránh 1 HLV bị trùng 2 ca tập cùng 1 khung giờ trong ngày
  */

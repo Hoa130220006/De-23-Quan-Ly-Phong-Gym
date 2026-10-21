@@ -206,6 +206,19 @@ docker compose ps
 
 *(Tại giao diện đăng nhập có 2 nút "Admin" và "Staff" hỗ trợ bấm điền tự động nhanh chóng để trình bày).*
 
+### 7.3. Truy cập Công Cụ Quản Lý Cơ Sở Dữ Liệu (phpMyAdmin)
+- **Địa chỉ:** `http://localhost:8080`
+- **Tài khoản đăng nhập phpMyAdmin:**
+  - **Người dùng ứng dụng (Application User):**
+    - Máy chủ (Server): `mysql`
+    - Tên người dùng: `gym_user`
+    - Mật khẩu: `GymSecret@2026`
+  - **Quản trị viên CSDL (Root Admin):**
+    - Máy chủ (Server): `mysql`
+    - Tên người dùng: `root`
+    - Mật khẩu: `GymRootAdmin@2026!`
+- **Cơ sở dữ liệu:** Chọn database `gym_management` để xem danh sách 7 bảng và dữ liệu mẫu.
+
 ---
 
 ## 8. Hướng Dẫn Giám Sát: Prometheus, Grafana, Loki
@@ -281,11 +294,12 @@ Khi nộp báo cáo kết thúc học phần, bạn cần chụp các ảnh minh
 3. **Ảnh 3:** Giao diện **Dashboard thống kê** với các thẻ KPI, biểu đồ tròn phân bổ và biểu đồ cột doanh thu theo gói tập.
 4. **Ảnh 4:** Bảng danh sách hội viên kèm tính năng tìm kiếm và xem chi tiết hồ sơ hội viên.
 5. **Ảnh 5:** Giao diện thêm mới hoặc chỉnh sửa lịch tập hiển thị thông báo ngăn chặn khi phát hiện **xung đột giờ tập của huấn luyện viên**.
-6. **Ảnh 6:** Giao diện Prometheus (`http://localhost:9090/targets`) hiển thị các target `nginx`, `mysql` ở trạng thái `UP`.
-7. **Ảnh 7:** Giao diện Grafana Dashboard **Titan Fitness - System & Services Overview** hiển thị đầy đủ số liệu và biểu đồ.
-8. **Ảnh 8:** Giao diện Grafana Dashboard **Titan Fitness - MySQL Performance Overview** hiển thị các chỉ số CSDL.
-9. **Ảnh 9:** Giao diện Grafana Explore thực hiện thành công 3 truy vấn LogQL thu thập log từ Nginx và PHP Application.
-10. **Ảnh 10:** Lịch sử 3 commit trên Git (`git log --oneline`).
+6. **Ảnh 6:** Giao diện công cụ quản lý cơ sở dữ liệu **phpMyAdmin** (`http://localhost:8080`) hiển thị cấu trúc CSDL `gym_management` và dữ liệu các bảng.
+7. **Ảnh 7:** Giao diện Prometheus (`http://localhost:9090/targets`) hiển thị các target `nginx`, `mysql` ở trạng thái `UP`.
+8. **Ảnh 8:** Giao diện Grafana Dashboard **Titan Fitness - System & Services Overview** hiển thị đầy đủ số liệu và biểu đồ.
+9. **Ảnh 9:** Giao diện Grafana Dashboard **Titan Fitness - MySQL Performance Overview** hiển thị các chỉ số CSDL.
+10. **Ảnh 10:** Giao diện Grafana Explore thực hiện thành công 3 truy vấn LogQL thu thập log từ Nginx và PHP Application.
+11. **Ảnh 11:** Lịch sử các commit trên Git (`git log --oneline`).
 
 ---
 
